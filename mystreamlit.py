@@ -48,7 +48,7 @@ st.date_input("Select a date")
 
 #upload data
 upload_file = st.file_uploader("Please upload here:", type = 'csv')
-df = pd.read_csv("country_wise_latest.csv")
+df = pd.read_csv("cd_country_wise_latest.csv")
 
 st.markdown("<hr style='border: 2px solid white;'>", unsafe_allow_html=True)
 
@@ -169,7 +169,7 @@ country_list = df['Country/Region'].unique()
 selected_country = st.selectbox("Select a country:", country_list)
 
 country_data = df[df['Country/Region'] == selected_country]
-st.write(country_data[['Confirmed', 'Deaths', 'Recovered', 'Active', 'New cases', '1 week change']])
+st.write(country_data[['Confirmed', 'Deaths', 'Recovered', 'Active', 'New cases', '1 Week change']])
 
 st.markdown("<hr style='border: 2px solid white;'>", unsafe_allow_html=True)
 
@@ -184,7 +184,7 @@ st.markdown("<hr style='border: 2px solid white;'>", unsafe_allow_html=True)
 st.header("🔍 Correlation Between COVID-19 Metrics")
 st.markdown("This heatmap shows how different variables are correlated with each other.")
 
-corr_cols = ['Confirmed', 'Deaths', 'Recovered', 'Active', 'New cases', '1 week change']
+corr_cols = ['Confirmed', 'Deaths', 'Recovered', 'Active', 'New cases', '1 Week change']
 corr = df[corr_cols].corr()
 
 fig, ax = plt.subplots(figsize=(10, 8))
@@ -196,20 +196,20 @@ st.pyplot(fig)
 st.markdown("<hr style='border: 2px solid white;'>", unsafe_allow_html=True)
 
 #scatter graph
-st.header("📉 Scatter Plots: Recovered Vs Deaths per 100 Cases")
-st.markdown("These scatter plots help visualize how the number of confirmed and new cases relate to weekly trends.")
+st.header("📉 Scatter Plots: Recovered Vs Deaths rate")
+st.markdown("Visualize how the rate of recovered cases and deaths cases related.")
 
-df['Recovered / 100 Cases'] = (df['Recovered'] / df['Confirmed']) * 100
-df['Deaths / 100 Cases'] = (df['Deaths'] / df['Confirmed']) * 100
+df['Reovery rate (%)'] = (df['Recovered'] / df['Confirmed']) * 100
+df['Case fatality rate (%)'] = (df['Deaths'] / df['Confirmed']) * 100
 
 pastel_colors = ['orange']
 
 fig, ax = plt.subplots(figsize=(15, 10))
-df.plot(kind='scatter', x='Recovered / 100 Cases', y='Deaths / 100 Cases',color=pastel_colors[0], ax=ax, label='Recovered / 100 Cases')
+df.plot(kind='scatter', x='Recovery rate (%)', y='Case fatality rate (%)',color=pastel_colors[0], ax=ax, label='Recovery rate (%)')
 
-ax.set_title('Recovered vs Deaths per 100 Cases', fontsize=16, fontweight='bold')
-ax.set_xlabel('Recovered / 100 Cases')
-ax.set_ylabel('Deaths / 100 Cases')
+ax.set_title('Recovered vs Deaths rate ', fontsize=16, fontweight='bold')
+ax.set_xlabel('Recovery rate (%)')
+ax.set_ylabel('Death rate (%)')
 ax.grid(True)
 ax.legend()
 

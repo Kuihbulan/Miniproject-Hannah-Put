@@ -43,11 +43,7 @@ st.markdown("""
 #header image
 st.image("q.jpg")
 
-#date input
-st.date_input("Select a date")
-
 #upload data
-upload_file = st.file_uploader("Please upload here:", type = 'csv')
 df = pd.read_csv("cd_country_wise_latest.csv")
 
 st.markdown("<hr style='border: 2px solid white;'>", unsafe_allow_html=True)
